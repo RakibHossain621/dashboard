@@ -5,21 +5,23 @@ import { Collapsible } from '@radix-ui/react-collapsible'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { FaAngleRight } from "react-icons/fa6";
+import { usePathname } from 'next/navigation'
+
 
 const Button = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = usePathname();  
+
 
   return (
     <div>
       <SidebarProvider>
         <SidebarMenu>
-          <Collapsible open={isOpen} onOpenChange={setIsOpen} className="group/collapsible">
-            <SidebarMenuItem className={`${isOpen && 'bg-red-500'}`}>
-              <CollapsibleTrigger asChild>
+          <Collapsible open={isOpen} onOpenChange={setIsOpen} >
+            <SidebarMenuItem className={`${isOpen && 'hover:bg-green-100 '}`}>
+              <CollapsibleTrigger asChild className={`${isOpen?"text-green-500":""}`}>
                 <SidebarMenuButton 
-                  className={`flex items-center  rounded-lg transition-colors duration-300 
-                    ${isOpen ? 'text-green-500' : 'bg-transparent text-black'}`
-                  }
+                  className={`flex items-center  rounded-lg transition-colors duration-300`}
                 >
                   <span className=""><MuiBox className="text-green-500" /></span>
                   <p className="flex-grow">User</p>
@@ -31,14 +33,14 @@ const Button = () => {
                 </SidebarMenuButton>
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <SidebarMenuSub className="rounded-lg mx-0">
-                  <Link href="/dashboard/profile" passHref>
+                <SidebarMenuSub className="rounded-lg mx-0 side_bar_list">
+                  <Link href="/dashboard/profile" passHref className={`${location === '/dashboard/profile' ? 'bg-red-500' : 'file:'}`}>
                     <SidebarMenuSubItem className="flex gap-4 items-center  rounded-md">
                       <MuiBox className="" />
                       <span>Profile</span>
                     </SidebarMenuSubItem>
                   </Link>
-                  <Link href="/dashboard/cards" passHref>
+                  <Link href="/dashboard/cards" passHref className={`${location === '/dashboard/cards' ? 'bg-red-500' : ''}`}>
                     <SidebarMenuSubItem className="flex gap-4 items-center  rounded-md">
                       <MuiBox/>
                       <span>Cards</span>
